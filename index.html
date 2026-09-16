@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>One Little Sorry 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Poppins,sans-serif;
+    background:#171329;
+    color:white;
+}
+
+/* ================= BACKGROUND ================= */
+
+.screen{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    transition:1s ease;
+}
+
+.bg{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%,#5d3d82 0%,transparent 30%),
+      radial-gradient(circle at 80% 70%,#9b426e 0%,transparent 30%),
+      linear-gradient(135deg,#171329,#39204b,#702d55);
+}
+
+.stars{
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(#fff 1px,transparent 1px),
+      radial-gradient(#fff 1px,transparent 1px);
+    background-size:80px 80px,130px 130px;
+    background-position:10px 20px,50px 70px;
+    opacity:.35;
+    animation:stars 15s linear infinite;
+}
+
+@keyframes stars{
+    from{transform:translateY(0)}
+    to{transform:translateY(-80px)}
+}
+
+/* ================= INTRO ================= */
+
+.intro-card{
+    position:relative;
+    z-index:3;
+    text-align:center;
+    max-width:420px;
+    animation:introIn 1.2s ease;
+}
+
+@keyframes introIn{
+    from{
+        opacity:0;
+        transform:translateY(40px) scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.moon{
+    font-size:55px;
+    margin-bottom:20px;
+    animation:moon 3s infinite ease-in-out;
+}
+
+@keyframes moon{
+    50%{transform:translateY(-10px)}
+}
+
+.intro-card h1{
+    font-family:Pacifico,cursive;
+    font-size:48px;
+    color:#ffd4ed;
+    text-shadow:0 0 25px #ff8ac5;
+}
+
+.intro-card p{
+    margin:20px 0 30px;
+    line-height:1.8;
+    color:#ead9e8;
+}
+
+.start-btn{
+    border:0;
+    padding:15px 30px;
+    border-radius:50px;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff65a9,#b93d78);
+    box-shadow:0 0 25px #ff579e88;
+    transition:.3s;
+}
+
+.start-btn:hover{
+    transform:scale(1.08);
+}
+
+/* ================= MAIN CARD ================= */
+
+#mainScreen{
+    display:none;
+    background:
+      radial-gradient(circle at 50% 0%,#ffd9e7,transparent 35%),
+      linear-gradient(135deg,#ffe7ef,#f9d9ed,#e8dcff);
+    color:#542c3d;
+}
+
+.main-card{
+    position:relative;
+    z-index:5;
+    width:min(92vw,430px);
+    min-height:650px;
+    padding:28px 25px;
+    border-radius:35px;
+    text-align:center;
+
+    background:rgba(255,255,255,.57);
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    box-shadow:
+      0 25px 70px rgba(90,35,80,.25),
+      inset 0 1px 0 white;
+
+    animation:cardIn .8s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:scale(.8) rotate(-2deg);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 16px;
+    border-radius:30px;
+    background:#ffffffaa;
+    color:#bd4774;
+    font-size:11px;
+    letter-spacing:1px;
+    font-weight:700;
+}
+
+.gif-area{
+    height:275px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.gif-area img{
+    width:250px;
+    height:250px;
+    object-fit:contain;
+    filter:drop-shadow(0 15px 20px #b75a7b33);
+    animation:catFloat 2.5s infinite ease-in-out;
+}
+
+@keyframes catFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.main-card h2{
+    font-family:Pacifico,cursive;
+    color:#c13e70;
+    font-size:34px;
+    margin:5px 0 12px;
+}
+
+.message{
+    color:#765465;
+    font-size:14px;
+    line-height:1.7;
+    min-height:55px;
+}
+
+/* ================= BUTTONS ================= */
+
+.buttons{
+    position:relative;
+    height:100px;
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    font-family:Poppins,sans-serif;
+    font-weight:600;
+    transition:.25s;
+}
+
+.yes{
+    padding:14px 32px;
+    border-radius:50px;
+    color:white;
+    font-size:16px;
+    background:linear-gradient(135deg,#23d98b,#13ad70);
+    box-shadow:0 10px 25px #13ad7050;
+    z-index:10;
+}
+
+.yes:hover{
+    transform:scale(1.08);
+}
+
+.no{
+    padding:12px 25px;
+    border-radius:50px;
+    background:#ff8da9;
+    color:#8a294c;
+    box-shadow:0 8px 20px #d55b7b30;
+}
+
+/* ================= FINAL ================= */
+
+.final{
+    display:none;
+    position:relative;
+    z-index:5;
+    text-align:center;
+    width:min(90vw,500px);
+    animation:finalIn 1s ease;
+}
+
+@keyframes finalIn{
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.final h1{
+    font-family:Pacifico,cursive;
+    font-size:55px;
+    color:#ffb7dc;
+    text-shadow:0 0 25px #ff4fa0;
+}
+
+.final img{
+    width:250px;
+    height:250px;
+    object-fit:contain;
+    margin:10px;
+}
+
+.final p{
+    line-height:1.8;
+    color:#f7ddeb;
+}
+
+.final-box{
+    margin-top:25px;
+    padding:18px;
+    border-radius:22px;
+    background:#ffffff12;
+    border:1px solid #ffffff22;
+    backdrop-filter:blur(10px);
+}
+
+/* ================= HEARTS ================= */
+
+.heart{
+    position:fixed;
+    bottom:-40px;
+    z-index:2;
+    pointer-events:none;
+    animation:heartUp linear forwards;
+}
+
+@keyframes heartUp{
+    0%{
+        transform:translateY(0) scale(.5) rotate(0);
+        opacity:0;
+    }
+    15%{opacity:1}
+    100%{
+        transform:translateY(-110vh) scale(1.2) rotate(30deg);
+        opacity:0;
+    }
+}
+
+/* ================= CONFETTI ================= */
+
+.confetti{
+    position:fixed;
+    width:8px;
+    height:15px;
+    top:-20px;
+    z-index:20;
+    animation:confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:500px){
+
+    .intro-card h1{
+        font-size:40px;
+    }
+
+    .main-card{
+        min-height:610px;
+        padding:25px 20px;
+    }
+
+    .gif-area{
+        height:245px;
+    }
+
+    .gif-area img{
+        width:220px;
+        height:220px;
+    }
+
+    .main-card h2{
+        font-size:29px;
+    }
+
+    .final h1{
+        font-size:43px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= INTRO ================= -->
+
+<div class="screen" id="intro">
+
+    <div class="bg"></div>
+    <div class="stars"></div>
+
+    <div class="intro-card">
+
+        <div class="moon">🌙</div>
+
+        <h1>Hey... ♡</h1>
+
+        <p>
+            I know I messed up...<br>
+            and I really want to make it right.<br>
+            <b>Can I say something? 🥺</b>
+        </p>
+
+        <button class="start-btn" onclick="openSorry()">
+            Tap to continue →
+        </button>
+
+    </div>
+</div>
+
+
+<!-- ================= MAIN PAGE ================= -->
+
+<div class="screen" id="mainScreen">
+
+    <div class="main-card">
+
+        <div class="badge">
+            💌 A LITTLE MESSAGE
+        </div>
+
+        <div class="gif-area">
+            <img id="mainGif"
+            src="https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif">
+        </div>
+
+        <h2 id="title">
+            Sorry... 💗
+        </h2>
+
+        <div class="message" id="message">
+            Please forgive me...<br>
+            I really didn't mean to hurt you. 🥺
+        </div>
+
+        <div class="buttons" id="buttons">
+
+            <button class="yes" id="yesBtn"
+            onclick="yesClicked()">
+                Yes 💗
+            </button>
+
+            <button class="no" id="noBtn"
+            onclick="noClicked()">
+                No 😭
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= FINAL ================= -->
+
+<div class="screen" id="finalScreen">
+
+    <div class="bg"></div>
+
+    <div class="stars"></div>
+
+    <div class="final">
+
+        <h1>Yayyyy!! 🥹💗</h1>
+
+        <img
+        src="https://media.tenor.com/mAXZ8eE2g-sAAAAM/goma-happy.gif">
+
+        <p>
+            Thank you for forgiving me. 🫶<br>
+            You have no idea how happy this made me.
+        </p>
+
+        <div class="final-box">
+            💌 <b>Promise:</b><br><br>
+            I'll try my best to not repeat my mistake
+            and I'll always value you. 💗
+        </div>
+
+        <br>
+
+        <p>
+            <i>Because... you deserve the sweetest apology. ♡</i>
+        </p>
+
+    </div>
+</div>
+
+
+<script>
+
+/* ================= VARIABLES ================= */
+
+let noCount = 0;
+let yesScale = 1;
+
+const gifs = [
+
+"https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif",
+
+"https://media.tenor.com/8zX8Kx_7O9YAAAAM/crying-sad.gif",
+
+"https://media.tenor.com/7gK1g6_X51MAAAAM/bear-cry.gif",
+
+"https://media.tenor.com/kH7s2w_r-fUAAAAM/cry-sad.gif",
+
+"https://media.tenor.com/g8e1mQ1VjNIAAAAM/sad-mochi.gif"
+
+];
+
+const titles = [
+
+"Are you sure? 🥺",
+
+"Really...? 😭",
+
+"Please don't do this... 💔",
+
+"I'm gonna cry... 😭",
+
+"Okay... LAST CHANCE 🥺"
+
+];
+
+const messages = [
+
+"I thought we were cool... 👉👈",
+
+"Please reconsider once...",
+
+"My little heart can't handle this 😭",
+
+"I'm literally begging now...",
+
+"Please press YES... I promise I'll behave. 🥹"
+
+];
+
+const noTexts = [
+
+"No 😭",
+
+"Are You Sure?",
+
+"Please Don't 😭",
+
+"Nooo 💔",
+
+"I'm Gonna Cry",
+
+"LAST NO?! 😭"
+
+];
+
+
+/* ================= OPEN ================= */
+
+function openSorry(){
+
+    document.getElementById("intro").style.opacity="0";
+
+    setTimeout(()=>{
+
+        document.getElementById("intro").style.display="none";
+
+        const main=document.getElementById("mainScreen");
+
+        main.style.display="flex";
+
+    },700);
+}
+
+
+/* ================= NO ================= */
+
+function noClicked(){
+
+    noCount++;
+
+    const gif=document.getElementById("mainGif");
+    const title=document.getElementById("title");
+    const message=document.getElementById("message");
+    const no=document.getElementById("noBtn");
+    const yes=document.getElementById("yesBtn");
+
+    const index=Math.min(noCount-1,gifs.length-1);
+
+    gif.src=gifs[index];
+
+    title.innerText=
+        titles[Math.min(noCount-1,titles.length-1)];
+
+    message.innerHTML=
+        messages[Math.min(noCount-1,messages.length-1)];
+
+    no.innerText=
+        noTexts[Math.min(noCount,noTexts.length-1)];
+
+    /* YES gets bigger */
+
+    yesScale += .15;
+
+    yes.style.transform=`scale(${yesScale})`;
+
+    /* NO starts running */
+
+    if(noCount>=3){
+
+        no.style.position="absolute";
+
+        const area=document.getElementById("buttons");
+
+        const x=(Math.random()*180)-90;
+        const y=(Math.random()*50)-25;
+
+        no.style.transform=
+            `translate(${x}px,${y}px)`;
+
+    }
+
+    /* Small shake */
+
+    document.querySelector(".main-card").animate(
+
+        [
+            {transform:"translateX(0)"},
+            {transform:"translateX(-5px)"},
+            {transform:"translateX(5px)"},
+            {transform:"translateX(0)"}
+        ],
+
+        {
+            duration:300
+        }
+    );
+}
+
+
+/* ================= YES ================= */
+
+function yesClicked(){
+
+    document.getElementById("mainScreen").style.display="none";
+
+    const final=document.getElementById("finalScreen");
+
+    final.style.display="flex";
+
+    createConfetti();
+
+    for(let i=0;i<30;i++){
+
+        setTimeout(createHeart,i*80);
+
+    }
+}
+
+
+/* ================= HEARTS ================= */
+
+function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+
+    const icons=[
+        "💗","💖","💕","💓",
+        "✨","🌸","💞","🫶"
+    ];
+
+    heart.innerText=
+        icons[Math.floor(Math.random()*icons.length)];
+
+    heart.style.left=
+        Math.random()*100+"vw";
+
+    heart.style.fontSize=
+        (15+Math.random()*25)+"px";
+
+    heart.style.animationDuration=
+        (4+Math.random()*4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+
+/* ================= CONTINUOUS HEARTS ================= */
+
+setInterval(createHeart,900);
+
+
+/* ================= CONFETTI ================= */
+
+function createConfetti(){
+
+    const symbols=[
+        "💗","💖","✨","🌸","💕","🎉"
+    ];
+
+    for(let i=0;i<70;i++){
+
+        setTimeout(()=>{
+
+            const c=document.createElement("div");
+
+            c.className="confetti";
+
+            c.innerText=
+                symbols[
+                    Math.floor(
+                        Math.random()*symbols.length
+                    )
+                ];
+
+            c.style.left=
+                Math.random()*100+"vw";
+
+            c.style.fontSize=
+                (12+Math.random()*20)+"px";
+
+            c.style.animationDuration=
+                (2+Math.random()*2)+"s";
+
+            document.body.appendChild(c);
+
+            setTimeout(()=>{
+                c.remove();
+            },4000);
+
+        },i*35);
+    }
+}
+
+</script>
+
+</body>
+  </html>
