@@ -3,269 +3,413 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171329">
 
-<title>One Little Sorry 💗</title>
+<title>One Little Sorry 💌</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
-
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
 }
 
 body{
-    min-height:100vh;
-    overflow:hidden;
-    font-family:Poppins,sans-serif;
+    font-family:Arial, sans-serif;
     background:#171329;
-    color:white;
 }
 
-/* ================= BACKGROUND ================= */
+/* =========================
+   COMMON
+========================= */
 
 .screen{
-    position:absolute;
+    position:fixed;
     inset:0;
+    width:100%;
+    height:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:20px;
-    transition:1s ease;
+    overflow:hidden;
 }
 
-.bg{
-    position:absolute;
-    inset:0;
+.hidden{
+    display:none !important;
+}
+
+/* =========================
+   OPENING SCREEN
+========================= */
+
+#opening{
     background:
-      radial-gradient(circle at 20% 20%,#5d3d82 0%,transparent 30%),
-      radial-gradient(circle at 80% 70%,#9b426e 0%,transparent 30%),
-      linear-gradient(135deg,#171329,#39204b,#702d55);
+        radial-gradient(circle at 20% 20%,#67477f 0%,transparent 32%),
+        radial-gradient(circle at 80% 75%,#a74475 0%,transparent 35%),
+        linear-gradient(145deg,#11101e,#31203f,#632d52);
+    color:white;
+}
+
+.night-glow{
+    position:absolute;
+    width:330px;
+    height:330px;
+    border-radius:50%;
+    background:#ffd7e855;
+    filter:blur(70px);
+    animation:glowMove 6s infinite alternate ease-in-out;
+}
+
+@keyframes glowMove{
+    from{
+        transform:translate(-80px,-50px);
+    }
+    to{
+        transform:translate(80px,60px);
+    }
 }
 
 .stars{
     position:absolute;
     inset:0;
     background-image:
-      radial-gradient(#fff 1px,transparent 1px),
-      radial-gradient(#fff 1px,transparent 1px);
-    background-size:80px 80px,130px 130px;
-    background-position:10px 20px,50px 70px;
+        radial-gradient(circle,#ffffff 1px,transparent 1.5px),
+        radial-gradient(circle,#ffffff 1px,transparent 1.5px);
+    background-size:75px 75px,120px 120px;
+    background-position:10px 20px,50px 80px;
     opacity:.35;
-    animation:stars 15s linear infinite;
+    animation:starMove 18s linear infinite;
 }
 
-@keyframes stars{
-    from{transform:translateY(0)}
-    to{transform:translateY(-80px)}
+@keyframes starMove{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-100px);
+    }
 }
 
-/* ================= INTRO ================= */
-
-.intro-card{
+.open-content{
     position:relative;
-    z-index:3;
+    z-index:5;
+    width:min(90%,430px);
     text-align:center;
-    max-width:420px;
-    animation:introIn 1.2s ease;
+    animation:openingIn 1.2s ease;
 }
 
-@keyframes introIn{
+@keyframes openingIn{
     from{
         opacity:0;
         transform:translateY(40px) scale(.9);
     }
     to{
         opacity:1;
-        transform:none;
+        transform:translateY(0) scale(1);
     }
 }
 
 .moon{
-    font-size:55px;
+    font-size:58px;
     margin-bottom:20px;
-    animation:moon 3s infinite ease-in-out;
+    animation:moonFloat 3s ease-in-out infinite;
 }
 
-@keyframes moon{
-    50%{transform:translateY(-10px)}
+@keyframes moonFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
 }
 
-.intro-card h1{
-    font-family:Pacifico,cursive;
-    font-size:48px;
-    color:#ffd4ed;
-    text-shadow:0 0 25px #ff8ac5;
+.open-content h1{
+    font-size:45px;
+    font-weight:700;
+    color:#ffd5eb;
+    text-shadow:0 0 25px #ff73b8;
+    margin-bottom:18px;
 }
 
-.intro-card p{
-    margin:20px 0 30px;
+.open-content p{
+    color:#eadcea;
     line-height:1.8;
-    color:#ead9e8;
+    font-size:15px;
 }
 
-.start-btn{
-    border:0;
+.open-btn{
+    margin-top:30px;
     padding:15px 30px;
+    border:1px solid #ffffff55;
     border-radius:50px;
+    background:linear-gradient(135deg,#ff69aa,#b83d78);
     color:white;
-    font-size:16px;
-    font-weight:600;
+    font-size:15px;
+    font-weight:bold;
+    box-shadow:0 10px 35px #ff4c9a55;
     cursor:pointer;
-    background:linear-gradient(135deg,#ff65a9,#b93d78);
-    box-shadow:0 0 25px #ff579e88;
     transition:.3s;
 }
 
-.start-btn:hover{
+.open-btn:hover{
     transform:scale(1.08);
 }
 
-/* ================= MAIN CARD ================= */
+/* =========================
+   MAIN BACKGROUND
+========================= */
 
-#mainScreen{
-    display:none;
+#main{
     background:
-      radial-gradient(circle at 50% 0%,#ffd9e7,transparent 35%),
-      linear-gradient(135deg,#ffe7ef,#f9d9ed,#e8dcff);
-    color:#542c3d;
+        radial-gradient(circle at 10% 10%,#ffd2e5 0%,transparent 30%),
+        radial-gradient(circle at 90% 85%,#d9c9ff 0%,transparent 35%),
+        linear-gradient(135deg,#fff1f6,#ffe3ee,#eee7ff);
 }
 
-.main-card{
+/* =========================
+   FLOATING DECORATIONS
+========================= */
+
+.decor{
+    position:absolute;
+    opacity:.5;
+    animation:decorFloat 6s ease-in-out infinite;
+    pointer-events:none;
+}
+
+.d1{
+    top:8%;
+    left:8%;
+    font-size:30px;
+}
+
+.d2{
+    top:18%;
+    right:8%;
+    font-size:34px;
+    animation-delay:1s;
+}
+
+.d3{
+    bottom:12%;
+    left:8%;
+    font-size:32px;
+    animation-delay:2s;
+}
+
+.d4{
+    bottom:20%;
+    right:7%;
+    font-size:28px;
+    animation-delay:3s;
+}
+
+@keyframes decorFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+    50%{
+        transform:translateY(-18px) rotate(8deg);
+    }
+}
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.card{
     position:relative;
     z-index:5;
-    width:min(92vw,430px);
-    min-height:650px;
-    padding:28px 25px;
-    border-radius:35px;
-    text-align:center;
 
-    background:rgba(255,255,255,.57);
+    width:min(92%,430px);
+    min-height:620px;
+
+    padding:26px 22px;
+
+    border-radius:34px;
+
+    background:rgba(255,255,255,.58);
     backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 
-    border:1px solid rgba(255,255,255,.8);
+    border:1px solid rgba(255,255,255,.85);
 
     box-shadow:
-      0 25px 70px rgba(90,35,80,.25),
-      inset 0 1px 0 white;
+        0 25px 70px rgba(100,50,100,.22),
+        inset 0 1px 0 white;
 
-    animation:cardIn .8s ease;
+    text-align:center;
+
+    animation:cardAppear .8s ease;
 }
 
-@keyframes cardIn{
+@keyframes cardAppear{
     from{
         opacity:0;
-        transform:scale(.8) rotate(-2deg);
+        transform:scale(.8) translateY(30px);
     }
     to{
         opacity:1;
-        transform:none;
+        transform:scale(1) translateY(0);
     }
 }
 
 .badge{
     display:inline-block;
-    padding:7px 16px;
+    padding:8px 17px;
     border-radius:30px;
+
     background:#ffffffaa;
-    color:#bd4774;
+    color:#b33e70;
+
     font-size:11px;
+    font-weight:bold;
     letter-spacing:1px;
-    font-weight:700;
 }
 
-.gif-area{
-    height:275px;
+.image-area{
+    height:265px;
+
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 }
 
-.gif-area img{
-    width:250px;
-    height:250px;
+.image-area img{
+    width:235px;
+    height:235px;
     object-fit:contain;
-    filter:drop-shadow(0 15px 20px #b75a7b33);
-    animation:catFloat 2.5s infinite ease-in-out;
+
+    filter:drop-shadow(0 15px 18px #9d527633);
+
+    animation:imageFloat 2.4s ease-in-out infinite;
 }
 
-@keyframes catFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-12px)}
+@keyframes imageFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
 }
 
-.main-card h2{
-    font-family:Pacifico,cursive;
-    color:#c13e70;
-    font-size:34px;
-    margin:5px 0 12px;
+.card h2{
+    color:#bf3d72;
+    font-size:30px;
+    margin-bottom:10px;
 }
 
 .message{
-    color:#765465;
+    min-height:55px;
+    color:#765464;
     font-size:14px;
     line-height:1.7;
-    min-height:55px;
 }
 
-/* ================= BUTTONS ================= */
+/* =========================
+   BUTTON AREA
+========================= */
 
-.buttons{
+.button-area{
     position:relative;
     height:100px;
-    margin-top:15px;
+
     display:flex;
     justify-content:center;
     align-items:center;
     gap:18px;
+
+    margin-top:10px;
 }
 
-button{
-    border:0;
-    cursor:pointer;
-    font-family:Poppins,sans-serif;
-    font-weight:600;
-    transition:.25s;
-}
-
-.yes{
-    padding:14px 32px;
-    border-radius:50px;
-    color:white;
-    font-size:16px;
-    background:linear-gradient(135deg,#23d98b,#13ad70);
-    box-shadow:0 10px 25px #13ad7050;
+.yes-btn{
+    position:relative;
     z-index:10;
-}
 
-.yes:hover{
-    transform:scale(1.08);
-}
+    padding:14px 32px;
 
-.no{
-    padding:12px 25px;
+    border:none;
     border-radius:50px;
-    background:#ff8da9;
-    color:#8a294c;
-    box-shadow:0 8px 20px #d55b7b30;
+
+    background:linear-gradient(135deg,#27d98d,#11ad70);
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    box-shadow:0 10px 28px #13ad7050;
+
+    cursor:pointer;
+    transition:.3s;
 }
 
-/* ================= FINAL ================= */
+.yes-btn:active{
+    transform:scale(.95);
+}
 
-.final{
+.no-btn{
+    position:relative;
+    z-index:11;
+
+    padding:12px 25px;
+
+    border:none;
+    border-radius:50px;
+
+    background:#ff91ab;
+    color:#7c2c48;
+
+    font-size:14px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.no-btn:active{
+    transform:scale(.9);
+}
+
+/* =========================
+   FINAL SCREEN
+========================= */
+
+#final{
     display:none;
+
+    background:
+        radial-gradient(circle at 50% 15%,#633d72 0%,transparent 35%),
+        radial-gradient(circle at 20% 80%,#a53f76 0%,transparent 30%),
+        linear-gradient(145deg,#151323,#342040,#642d54);
+
+    color:white;
+}
+
+.final-content{
     position:relative;
     z-index:5;
+
+    width:min(90%,500px);
     text-align:center;
-    width:min(90vw,500px);
-    animation:finalIn 1s ease;
+
+    animation:finalAppear 1s ease;
 }
 
-@keyframes finalIn{
+@keyframes finalAppear{
     from{
         opacity:0;
-        transform:scale(.7);
+        transform:scale(.6);
     }
     to{
         opacity:1;
@@ -273,102 +417,142 @@ button{
     }
 }
 
-.final h1{
-    font-family:Pacifico,cursive;
-    font-size:55px;
-    color:#ffb7dc;
-    text-shadow:0 0 25px #ff4fa0;
+.final-content h1{
+    font-size:48px;
+    color:#ffb8dc;
+    text-shadow:0 0 25px #ff4e9e;
+    margin-bottom:5px;
 }
 
-.final img{
-    width:250px;
-    height:250px;
+.final-content img{
+    width:230px;
+    height:230px;
     object-fit:contain;
-    margin:10px;
+
+    animation:happyFloat 2s ease-in-out infinite;
 }
 
-.final p{
+@keyframes happyFloat{
+    50%{
+        transform:translateY(-12px) rotate(2deg);
+    }
+}
+
+.final-content p{
+    color:#f2dfec;
+    font-size:15px;
     line-height:1.8;
-    color:#f7ddeb;
 }
 
 .final-box{
-    margin-top:25px;
+    margin-top:20px;
     padding:18px;
+
+    border:1px solid #ffffff25;
     border-radius:22px;
+
     background:#ffffff12;
-    border:1px solid #ffffff22;
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
+
+    line-height:1.6;
 }
 
-/* ================= HEARTS ================= */
+/* =========================
+   HEARTS
+========================= */
 
 .heart{
     position:fixed;
-    bottom:-40px;
-    z-index:2;
+    bottom:-50px;
+
+    z-index:20;
+
     pointer-events:none;
+
     animation:heartUp linear forwards;
 }
 
 @keyframes heartUp{
     0%{
-        transform:translateY(0) scale(.5) rotate(0);
+        transform:translateY(0) scale(.5);
         opacity:0;
     }
-    15%{opacity:1}
+
+    15%{
+        opacity:1;
+    }
+
     100%{
-        transform:translateY(-110vh) scale(1.2) rotate(30deg);
+        transform:translateY(-110vh) scale(1.2) rotate(25deg);
         opacity:0;
     }
 }
 
-/* ================= CONFETTI ================= */
+/* =========================
+   CONFETTI
+========================= */
 
 .confetti{
     position:fixed;
-    width:8px;
-    height:15px;
-    top:-20px;
-    z-index:20;
-    animation:confettiFall 3s linear forwards;
+    top:-30px;
+
+    z-index:50;
+
+    pointer-events:none;
+
+    animation:fall linear forwards;
 }
 
-@keyframes confettiFall{
+@keyframes fall{
     to{
         transform:translateY(110vh) rotate(720deg);
         opacity:0;
     }
 }
 
-/* ================= MOBILE ================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:500px){
 
-    .intro-card h1{
+    .open-content h1{
         font-size:40px;
     }
 
-    .main-card{
-        min-height:610px;
-        padding:25px 20px;
+    .open-content p{
+        font-size:14px;
     }
 
-    .gif-area{
+    .card{
+        min-height:590px;
+        padding:23px 18px;
+    }
+
+    .image-area{
         height:245px;
     }
 
-    .gif-area img{
-        width:220px;
-        height:220px;
+    .image-area img{
+        width:215px;
+        height:215px;
     }
 
-    .main-card h2{
-        font-size:29px;
+    .card h2{
+        font-size:28px;
     }
 
-    .final h1{
-        font-size:43px;
+    .message{
+        font-size:13px;
+    }
+
+    .final-content h1{
+        font-size:40px;
+    }
+
+    .final-content img{
+        width:210px;
+        height:210px;
     }
 }
 </style>
@@ -376,14 +560,16 @@ button{
 
 <body>
 
-<!-- ================= INTRO ================= -->
+<!-- =========================
+     OPENING
+========================= -->
 
-<div class="screen" id="intro">
+<section class="screen" id="opening">
 
-    <div class="bg"></div>
+    <div class="night-glow"></div>
     <div class="stars"></div>
 
-    <div class="intro-card">
+    <div class="open-content">
 
         <div class="moon">🌙</div>
 
@@ -391,346 +577,416 @@ button{
 
         <p>
             I know I messed up...<br>
-            and I really want to make it right.<br>
+            and I really want to make things right.<br><br>
+
             <b>Can I say something? 🥺</b>
         </p>
 
-        <button class="start-btn" onclick="openSorry()">
-            Tap to continue →
+        <button class="open-btn" onclick="openMessage()">
+            Open This 💌 →
         </button>
 
     </div>
-</div>
+
+</section>
 
 
-<!-- ================= MAIN PAGE ================= -->
+<!-- =========================
+     MAIN
+========================= -->
 
-<div class="screen" id="mainScreen">
+<section class="screen" id="main">
 
-    <div class="main-card">
+    <div class="decor d1">🌸</div>
+    <div class="decor d2">💗</div>
+    <div class="decor d3">✨</div>
+    <div class="decor d4">🌷</div>
+
+    <div class="card">
 
         <div class="badge">
             💌 A LITTLE MESSAGE
         </div>
 
-        <div class="gif-area">
-            <img id="mainGif"
-            src="https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif">
+        <div class="image-area">
+
+            <img
+                id="mainImage"
+                src="https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif"
+                alt="Cute animation">
+
         </div>
 
         <h2 id="title">
-            Sorry... 💗
+            I'm Sorry... 🥺
         </h2>
 
         <div class="message" id="message">
+
             Please forgive me...<br>
-            I really didn't mean to hurt you. 🥺
+            I really didn't mean to upset you. 💗
+
         </div>
 
-        <div class="buttons" id="buttons">
+        <div class="button-area" id="buttonArea">
 
-            <button class="yes" id="yesBtn"
-            onclick="yesClicked()">
+            <button
+                class="yes-btn"
+                id="yesBtn"
+                onclick="yesClicked()">
                 Yes 💗
             </button>
 
-            <button class="no" id="noBtn"
-            onclick="noClicked()">
+            <button
+                class="no-btn"
+                id="noBtn"
+                onclick="noClicked()">
                 No 😭
             </button>
 
         </div>
 
     </div>
-</div>
+
+</section>
 
 
-<!-- ================= FINAL ================= -->
+<!-- =========================
+     FINAL
+========================= -->
 
-<div class="screen" id="finalScreen">
-
-    <div class="bg"></div>
+<section class="screen" id="final">
 
     <div class="stars"></div>
 
-    <div class="final">
+    <div class="final-content">
 
-        <h1>Yayyyy!! 🥹💗</h1>
+        <h1>YAYYYY!! 🥹💗</h1>
 
         <img
-        src="https://media.tenor.com/mAXZ8eE2g-sAAAAM/goma-happy.gif">
+            src="https://media.tenor.com/mAXZ8eE2g-sAAAAM/goma-happy.gif"
+            alt="Happy animation">
 
         <p>
             Thank you for forgiving me. 🫶<br>
-            You have no idea how happy this made me.
+            This genuinely made me happy. ✨
         </p>
 
         <div class="final-box">
-            💌 <b>Promise:</b><br><br>
-            I'll try my best to not repeat my mistake
-            and I'll always value you. 💗
+
+            💌 <b>Promise:</b><br>
+
+            I'll try my best to do better
+            and not repeat the same mistake. 💗
+
         </div>
 
         <br>
 
         <p>
-            <i>Because... you deserve the sweetest apology. ♡</i>
+            <i>Sorry accepted? ✅💗</i>
         </p>
 
     </div>
-</div>
+
+</section>
 
 
 <script>
 
-/* ================= VARIABLES ================= */
+/* =================================
+   DATA
+================================= */
 
-let noCount = 0;
-let yesScale = 1;
+const sadImages = [
 
-const gifs = [
+    "https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif",
 
-"https://media.tenor.com/T_15iZf9r1gAAAAM/peach-cat.gif",
+    "https://media.tenor.com/8zX8Kx_7O9YAAAAM/crying-sad.gif",
 
-"https://media.tenor.com/8zX8Kx_7O9YAAAAM/crying-sad.gif",
+    "https://media.tenor.com/7gK1g6_X51MAAAAM/bear-cry.gif",
 
-"https://media.tenor.com/7gK1g6_X51MAAAAM/bear-cry.gif",
+    "https://media.tenor.com/kH7s2w_r-fUAAAAM/cry-sad.gif",
 
-"https://media.tenor.com/kH7s2w_r-fUAAAAM/cry-sad.gif",
-
-"https://media.tenor.com/g8e1mQ1VjNIAAAAM/sad-mochi.gif"
-
-];
-
-const titles = [
-
-"Are you sure? 🥺",
-
-"Really...? 😭",
-
-"Please don't do this... 💔",
-
-"I'm gonna cry... 😭",
-
-"Okay... LAST CHANCE 🥺"
+    "https://media.tenor.com/g8e1mQ1VjNIAAAAM/sad-mochi.gif"
 
 ];
 
-const messages = [
+const reactions = [
 
-"I thought we were cool... 👉👈",
+    {
+        title:"Are you sure? 🥺",
+        text:"Maybe give me one more chance? 👉👈",
+        button:"Really? 😭"
+    },
 
-"Please reconsider once...",
+    {
+        title:"Please reconsider... 💔",
+        text:"I promise I'm genuinely sorry.",
+        button:"Nooo 😭"
+    },
 
-"My little heart can't handle this 😭",
+    {
+        title:"I'm getting sad now 😭",
+        text:"Why are you doing this to me? 🥺",
+        button:"Still No 😤"
+    },
 
-"I'm literally begging now...",
+    {
+        title:"Okay... I'm begging now 🥹",
+        text:"Just press the green button once...",
+        button:"Stop 😭"
+    },
 
-"Please press YES... I promise I'll behave. 🥹"
+    {
+        title:"LAST CHANCE!! 🥺",
+        text:"Please... let's end this happily. 💗",
+        button:"NO 😭"
+    }
 
 ];
 
-const noTexts = [
-
-"No 😭",
-
-"Are You Sure?",
-
-"Please Don't 😭",
-
-"Nooo 💔",
-
-"I'm Gonna Cry",
-
-"LAST NO?! 😭"
-
-];
+let noClicks = 0;
+let yesSize = 1;
 
 
-/* ================= OPEN ================= */
+/* =================================
+   OPEN MESSAGE
+================================= */
 
-function openSorry(){
+function openMessage(){
 
-    document.getElementById("intro").style.opacity="0";
+    const opening = document.getElementById("opening");
+    const main = document.getElementById("main");
 
-    setTimeout(()=>{
+    opening.style.transition = "opacity .7s ease";
+    opening.style.opacity = "0";
 
-        document.getElementById("intro").style.display="none";
+    setTimeout(function(){
 
-        const main=document.getElementById("mainScreen");
-
-        main.style.display="flex";
+        opening.style.display = "none";
+        main.style.display = "flex";
 
     },700);
 }
 
 
-/* ================= NO ================= */
+/* =================================
+   NO BUTTON
+================================= */
 
 function noClicked(){
 
-    noCount++;
+    noClicks++;
 
-    const gif=document.getElementById("mainGif");
-    const title=document.getElementById("title");
-    const message=document.getElementById("message");
-    const no=document.getElementById("noBtn");
-    const yes=document.getElementById("yesBtn");
+    const image = document.getElementById("mainImage");
+    const title = document.getElementById("title");
+    const message = document.getElementById("message");
+    const noButton = document.getElementById("noBtn");
+    const yesButton = document.getElementById("yesBtn");
+    const area = document.getElementById("buttonArea");
 
-    const index=Math.min(noCount-1,gifs.length-1);
+    const index = Math.min(
+        noClicks - 1,
+        reactions.length - 1
+    );
 
-    gif.src=gifs[index];
+    image.src = sadImages[index];
 
-    title.innerText=
-        titles[Math.min(noCount-1,titles.length-1)];
+    title.innerText = reactions[index].title;
 
-    message.innerHTML=
-        messages[Math.min(noCount-1,messages.length-1)];
+    message.innerHTML =
+        reactions[index].text;
 
-    no.innerText=
-        noTexts[Math.min(noCount,noTexts.length-1)];
+    noButton.innerText =
+        reactions[index].button;
 
-    /* YES gets bigger */
 
-    yesScale += .15;
+    /* YES button grows */
 
-    yes.style.transform=`scale(${yesScale})`;
+    yesSize += 0.12;
 
-    /* NO starts running */
+    yesButton.style.transform =
+        "scale(" + yesSize + ")";
 
-    if(noCount>=3){
 
-        no.style.position="absolute";
+    /* NO button starts moving */
 
-        const area=document.getElementById("buttons");
+    if(noClicks >= 3){
 
-        const x=(Math.random()*180)-90;
-        const y=(Math.random()*50)-25;
+        noButton.style.position = "absolute";
 
-        no.style.transform=
-            `translate(${x}px,${y}px)`;
+        const areaWidth = area.offsetWidth;
+        const areaHeight = area.offsetHeight;
 
+        const x =
+            Math.random() * (areaWidth - 120)
+            - (areaWidth / 2 - 60);
+
+        const y =
+            Math.random() * 45 - 22;
+
+        noButton.style.transform =
+            "translate(" + x + "px," + y + "px)";
     }
 
-    /* Small shake */
 
-    document.querySelector(".main-card").animate(
+    /* Little shake */
 
+    const card = document.querySelector(".card");
+
+    card.animate(
         [
             {transform:"translateX(0)"},
-            {transform:"translateX(-5px)"},
-            {transform:"translateX(5px)"},
+            {transform:"translateX(-6px)"},
+            {transform:"translateX(6px)"},
+            {transform:"translateX(-3px)"},
             {transform:"translateX(0)"}
         ],
-
         {
-            duration:300
+            duration:350,
+            easing:"ease-in-out"
         }
     );
 }
 
 
-/* ================= YES ================= */
+/* =================================
+   YES BUTTON
+================================= */
 
 function yesClicked(){
 
-    document.getElementById("mainScreen").style.display="none";
+    const main = document.getElementById("main");
+    const final = document.getElementById("final");
 
-    const final=document.getElementById("finalScreen");
-
-    final.style.display="flex";
+    main.style.display = "none";
+    final.style.display = "flex";
 
     createConfetti();
 
-    for(let i=0;i<30;i++){
+    for(let i = 0; i < 35; i++){
 
-        setTimeout(createHeart,i*80);
+        setTimeout(
+            createHeart,
+            i * 70
+        );
 
     }
 }
 
 
-/* ================= HEARTS ================= */
+/* =================================
+   FLOATING HEARTS
+================================= */
 
 function createHeart(){
 
-    const heart=document.createElement("div");
+    const heart =
+        document.createElement("div");
 
-    heart.className="heart";
+    heart.className = "heart";
 
-    const icons=[
-        "💗","💖","💕","💓",
-        "✨","🌸","💞","🫶"
+    const icons = [
+        "💗",
+        "💖",
+        "💕",
+        "💓",
+        "✨",
+        "🌸",
+        "🫶"
     ];
 
-    heart.innerText=
-        icons[Math.floor(Math.random()*icons.length)];
+    heart.innerText =
+        icons[
+            Math.floor(
+                Math.random() * icons.length
+            )
+        ];
 
-    heart.style.left=
-        Math.random()*100+"vw";
+    heart.style.left =
+        Math.random() * 100 + "vw";
 
-    heart.style.fontSize=
-        (15+Math.random()*25)+"px";
+    heart.style.fontSize =
+        (15 + Math.random() * 22) + "px";
 
-    heart.style.animationDuration=
-        (4+Math.random()*4)+"s";
+    heart.style.animationDuration =
+        (4 + Math.random() * 4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
-        heart.remove();
-    },8000);
+    setTimeout(
+        () => heart.remove(),
+        8500
+    );
 }
 
 
-/* ================= CONTINUOUS HEARTS ================= */
+/* =================================
+   CONTINUOUS HEARTS
+================================= */
 
-setInterval(createHeart,900);
+setInterval(
+    createHeart,
+    1000
+);
 
 
-/* ================= CONFETTI ================= */
+/* =================================
+   CONFETTI
+================================= */
 
 function createConfetti(){
 
-    const symbols=[
-        "💗","💖","✨","🌸","💕","🎉"
+    const symbols = [
+        "💗",
+        "💖",
+        "✨",
+        "🌸",
+        "💕",
+        "🎉",
+        "⭐"
     ];
 
-    for(let i=0;i<70;i++){
+    for(let i = 0; i < 80; i++){
 
-        setTimeout(()=>{
+        setTimeout(function(){
 
-            const c=document.createElement("div");
+            const confetti =
+                document.createElement("div");
 
-            c.className="confetti";
+            confetti.className =
+                "confetti";
 
-            c.innerText=
+            confetti.innerText =
                 symbols[
                     Math.floor(
-                        Math.random()*symbols.length
+                        Math.random() *
+                        symbols.length
                     )
                 ];
 
-            c.style.left=
-                Math.random()*100+"vw";
+            confetti.style.left =
+                Math.random() * 100 + "vw";
 
-            c.style.fontSize=
-                (12+Math.random()*20)+"px";
+            confetti.style.fontSize =
+                (12 + Math.random() * 18) + "px";
 
-            c.style.animationDuration=
-                (2+Math.random()*2)+"s";
+            confetti.style.animationDuration =
+                (2 + Math.random() * 2) + "s";
 
-            document.body.appendChild(c);
+            document.body.appendChild(confetti);
 
-            setTimeout(()=>{
-                c.remove();
-            },4000);
+            setTimeout(
+                () => confetti.remove(),
+                4500
+            );
 
-        },i*35);
+        },i * 35);
     }
 }
 
 </script>
 
 </body>
-  </html>
+</html>
